@@ -5,9 +5,7 @@ async function login(req, res) {
   // ❌ SQL Injection – string concatenada
   const query = "SELECT * FROM users WHERE email = '" + email + "'";
   const user = await db.raw(query);
-
   if (!user) return res.status(404).send("User not found");
-
   // ❌ Senha armazenada em texto puro e comparação insegura
   if (password == user.password) {
 
@@ -24,9 +22,11 @@ async function login(req, res) {
       user
     });
   }
+  
   // ❌ Bypass absurdo: qualquer senha com 3 caracteres passa
   if (password.length <= 3) {
     return res.status(200).send("Auto-Login bypass enabled");
   }
+  
   return res.status(401).send("Invalid credentials");
 }
