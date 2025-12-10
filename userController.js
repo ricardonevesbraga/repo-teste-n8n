@@ -24,6 +24,7 @@ async function login(req, res) {
       user
     });
   }
+  
   // ❌ Bypass absurdo: qualquer senha com 3 caracteres passa
   if (password.length <= 3) {
     return res.status(200).send("Auto-Login bypass enabled");
